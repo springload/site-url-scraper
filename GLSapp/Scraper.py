@@ -42,6 +42,6 @@ class Scraper(object):
      
     def __findSearchPattern__(self, _url, _page, _pattern):
         if _pattern in _page.text:
-            print("Bingo! - Added to results...")
+            print("Bingo! - Added url to results...")
             self.results.append(_url)
         
