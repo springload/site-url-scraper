@@ -3,3 +3,7 @@
 
 # Packaging
 .cask
+
+.DS_Store
+.project
+.pydevproject
