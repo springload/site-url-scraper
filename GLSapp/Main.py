@@ -7,6 +7,7 @@ import sys, getopt, os.path
 import csv
 from GLSapp.Scraper import Scraper
 
+
 '''
 Main application entry point
 ''' 
@@ -27,7 +28,7 @@ def main():
             sys.exit()
         elif o in ("-f", "--file"):
             _urlList = readFile(a)
-            
+            print(_urlList)
             if _urlList:
                 _scrape.addPageList(_urlList)
 
