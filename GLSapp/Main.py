@@ -29,15 +29,18 @@ def main():
         elif o in ("-f", "--file"):
             _urlList = readFile(a)
             print(_urlList)
-            if _urlList:
+            if len(_urlList) > 0:
                 _scrape.addPageList(_urlList)
 
         elif o in ("-u", "--url"):
             _scrape.addPage(a)
     
-    results = _scrape.run("<meta")
-    
+    results = _scrape.run("montana", WriteCSV)
+
+def WriteCSV(results):
+    print("Results: ")
     print(results)
+    
     
 '''
 Display help
@@ -55,9 +58,11 @@ def readFile(filename):
     
         csv_list = []
         
-        with open(filename, 'rb') as f:
+        with open(filename, 'r') as f:
             reader = csv.reader(f)
-            csv_list = list(reader)
+            for line in reader:
+                if ("http" in line[0]):
+                    csv_list.append(line[0])
         
         return csv_list
     
