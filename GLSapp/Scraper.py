@@ -14,7 +14,7 @@ class Scraper(object):
         self.pages = []
         self.results = []
         
-        self.maxThreads = 10
+        self.maxThreads = 20
         self.activeThreads = 0
         
         self.pattern = ""
@@ -81,8 +81,10 @@ class Scraper(object):
     
     # Finish scraper if no more url's are left in the list    
     def checkAllThreadsHaveRun(self, _finalFunc):
-        if len(self.pages) == 0:
+        if len(self.pages) == 0 and self.activeThreads <= 0:
             _finalFunc(self.results)
+        else:
+            print("Waiting for " + str(self.activeThreads) + " threads to finish operations...")
     
     #  Private basic pattern search functionality
     def __findSearchPattern__(self, _url, _page):
