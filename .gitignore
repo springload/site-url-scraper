@@ -3,4 +3,6 @@
 .DS_Store
 .project
 .pydevproject
+__pycache__/
+*.txt
 
