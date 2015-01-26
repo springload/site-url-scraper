@@ -4,14 +4,14 @@ except ImportError:
     from distutils.core import setup
 
 config = {
-    'description': 'Jazz festival link scraper',
-    'author': 'Dave Cartweright',
+    'description': 'Link scraper for Google external link referrences',
+    'author': 'Dave Cartwright',
     'url': 'URL to get it at.',
     'download_url': 'Where to download it.',
     'author_email': 'dave@springload.co.nz',
     'version': '0.1',
     'install_requires': ['unittest'],
-    'packages': [''],
+    'packages': ['requests'],
     'scripts': [],
     'name': 'GLSapp'
 }
