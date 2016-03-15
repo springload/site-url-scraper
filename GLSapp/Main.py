@@ -72,7 +72,7 @@ class MainApp:
             self.fileUpdated = True
 
             fh = open("Results.txt", "w")
-            fh.write('\n'.join(_results) + '\n')
+            fh.write('\n'.join(sorted(_results)) + '\n')
             fh.close()
 
             print("Result written!")
