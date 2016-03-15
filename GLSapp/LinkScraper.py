@@ -9,7 +9,7 @@ class LinkScraper(Scraper):
     def __init__(self, callback):
         super().__init__(callback)
         self.base_url = None
-        self.link_pattern = re.compile(r'href="(.*?)"')
+        self.link_pattern = re.compile(r'href=["\'](.*?)["\']')
         self.file_pattern = re.compile(r'\.(css|js|txt|jpg|png|gif|swf|pdf)')
 
     def can_run(self):
