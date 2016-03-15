@@ -14,8 +14,8 @@ class Scraper(object):
     def __init__(self, callback):
         self.pages = list()
         self.visited_pages = set()
-        self.results = list()
-        self.errors = list()
+        self.results = set()
+        self.errors = set()
         
         self.maxThreads = 20
         self.activeThreads = 0
@@ -35,10 +35,13 @@ class Scraper(object):
         for url in _list:
             self.add_page(url)
 
-    # Add results
+    # Add result
     def add_result(self, url):
-        if url not in self.results:
-            self.results.append(url)
+        self.results.add(url)
+
+    # Add error
+    def add_error(self, url):
+        self.errors.add('# ERROR: {0}'.format(url))
 
     # Check if the scraper can run
     def can_run(self):
@@ -86,7 +89,7 @@ class Scraper(object):
             self.visited_pages.add(_url)
 
         except:
-            self.errors.append('# ERROR: {0}'.format(_url))
+            self.add_error(_url)
 
         self.activeThreads -= 1
         self.start_scrape_threads()
@@ -94,7 +97,7 @@ class Scraper(object):
     # Finish scraper if no more url's are left in the list    
     def check_all_threads_have_run(self):
         if len(self.pages) == 0 and self.activeThreads <= 0:
-            self.callback(self.results + self.errors)
+            self.callback(self.results | self.errors)
 
         else:
             print("Waiting for " + str(self.activeThreads) + " threads to finish operations...")
