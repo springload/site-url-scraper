@@ -1,8 +1,8 @@
-'''
+"""
 Created on 23/01/2015
 
 @author: dave
-'''
+"""
 
 import sys, getopt, os.path
 import csv
@@ -11,7 +11,7 @@ from GLSapp.LinkScraper import LinkScraper
 
 
 # Application handling class
-class MainApp():
+class MainApp:
 
     def __init__(self):
         self.scraper = None
@@ -46,7 +46,7 @@ class MainApp():
                 self.scraper = LinkScraper()
 
             elif o in ("-f", "--file"):
-                _urlList = self.readFile(a)
+                _urlList = self.read_file(a)
                 if len(_urlList) > 0:
                     self.urls += _urlList
 
@@ -61,12 +61,12 @@ class MainApp():
 
         # Run
         print(self.scraper)
-        self.scraper.addPageList(self.urls)
-        self.scraper.run(self.writeCSV)
+        self.scraper.add_page_list(self.urls)
+        self.scraper.run(self.write_csv)
 
     # Write output into file
-    def writeCSV(self, _results):
-        if self.fileUpdated == False:
+    def write_csv(self, _results):
+        if not self.fileUpdated:
             self.fileUpdated = True
 
             fh = open("Results.txt", "w")
@@ -74,7 +74,6 @@ class MainApp():
             fh.close()
 
             print("Result written!")
-
 
     # Display help message
     def usage(self):
@@ -87,20 +86,20 @@ class MainApp():
         pass
 
     # Read list from CSV file
-    def readFile(self, _filename):
+    def read_file(self, _filename):
 
         if os.path.isfile(_filename):
             csv_list = []
             with open(_filename, 'r') as f:
                 reader = csv.reader(f)
                 for line in reader:
-                    if ("http" in line[0]):
+                    if "http" in line[0]:
                         csv_list.append(line[0])
 
             return csv_list
 
         else:
-            print("File: "+ _filename + " not found")
+            print("File: " + _filename + " not found")
 
         return False
 
