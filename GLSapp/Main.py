@@ -21,7 +21,7 @@ class MainApp():
     def main(self):
 
         try:
-            opts, args = getopt.getopt(sys.argv[1:], "h:f:u:p:", ["help", "file=", "url=", "pattern="])
+            opts, args = getopt.getopt(sys.argv[1:], "hf:u:p:", ["help", "file=", "url=", "pattern="])
         except getopt.GetoptError as err:
             # print help information and exit:
             print(err) # will print something like "option -a not recognized"
