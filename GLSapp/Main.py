@@ -63,7 +63,6 @@ class MainApp:
             sys.exit()
 
         # Run
-        print(self.scraper)
         self.scraper.add_page_list(self.urls)
         self.scraper.run()
 
