@@ -4,8 +4,11 @@ Created on 23/01/2015
 @author: dave
 """
 
-import sys, getopt, os.path
 import csv
+import getopt
+import os.path
+import sys
+
 from GLSapp.ReferenceScraper import ReferenceScraper
 from GLSapp.LinkScraper import LinkScraper
 
@@ -29,7 +32,7 @@ class MainApp:
             opts, args = getopt.getopt(sys.argv[1:], "hf:u:p:l", ["help", "file=", "url=", "pattern=", "links"])
         except getopt.GetoptError as err:
             # print help information and exit:
-            print(err) # will print something like "option -a not recognized"
+            print(err)  # will print something like "option -a not recognized"
             self.usage()
             sys.exit(2)
 
