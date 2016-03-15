@@ -10,7 +10,7 @@ class LinkScraper(Scraper):
         super().__init__(callback)
         self.base_url = None
         self.link_pattern = re.compile(r'href=["\'](.*?)["\']')
-        self.file_pattern = re.compile(r'\.(css|js|txt|jpg|png|gif|swf|pdf)')
+        self.file_pattern = re.compile(r'\.(css|js|txt|jpg|png|gif|swf|pdf|ico)')
 
     def remove_base_url(self, url):
         return url.replace(self.base_url, '') or '/'
