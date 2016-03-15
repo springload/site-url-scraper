@@ -23,21 +23,27 @@ class LinkScraper(Scraper):
         url = self.remove_base_url(url)
         super().add_error(url)
 
-    def can_run(self):
-        if self.base_url:
-            return super().can_run()
-
-        else:
-            print("Please add a url")
-            return False
-
-    def run(self):
+    def set_base_url(self):
 
         if len(self.pages) > 0:
             uri = urlparse(self.pages[0])
             self.base_url = '{uri.scheme}://{uri.netloc}'.format(uri=uri)
 
-        super().run()
+    def can_run(self):
+
+        self.set_base_url()
+
+        if not self.base_url:
+            print("Please add an url to crawl")
+            return False
+
+        if len(self.pages) > 1:
+            all_same_origin = all(map(lambda url: url.startswith(self.base_url), self.pages))
+            if not all_same_origin:
+                print("Please make sure all the url are from the same origin when using link mode")
+                return False
+
+        return super().can_run()
 
     def __find__(self, _url, _page):
 
