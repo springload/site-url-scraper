@@ -66,17 +66,6 @@ class MainApp:
         self.scraper.add_page_list(self.urls)
         self.scraper.run()
 
-    # Write output into file
-    def write_csv(self, _results):
-        if not self.fileUpdated:
-            self.fileUpdated = True
-
-            fh = open("Results.txt", "w")
-            fh.write('\n'.join(sorted(_results)) + '\n')
-            fh.close()
-
-            print("Result written!")
-
     # Display help message
     def usage(self):
         print("Options:")
@@ -104,6 +93,17 @@ class MainApp:
             print("File: " + _filename + " not found")
 
         return False
+
+    # Write output into file
+    def write_csv(self, _results):
+        if not self.fileUpdated:
+            self.fileUpdated = True
+
+            fh = open("Results.txt", "w")
+            fh.write('\n'.join(sorted(_results)) + '\n')
+            fh.close()
+
+            print("Result written!")
 
 # Run application from self
 if __name__ == '__main__':
