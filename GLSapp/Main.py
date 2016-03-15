@@ -6,49 +6,63 @@ Created on 23/01/2015
 
 import sys, getopt, os.path
 import csv
-from GLSapp.Scraper import Scraper
+from GLSapp.ReferenceScraper import ReferenceScraper
+from GLSapp.LinkScraper import LinkScraper
+
 
 # Application handling class
 class MainApp():
 
     def __init__(self):
-        self.scraper = Scraper()
-        self.pattern = ""
+        self.scraper = None
+        self.mode = None
+
+        self.urls = list()
 
         self.fileUpdated = False
 
     # Main application entry point
     def main(self):
 
+        # Extract args
         try:
-            opts, args = getopt.getopt(sys.argv[1:], "hf:u:p:", ["help", "file=", "url=", "pattern="])
+            opts, args = getopt.getopt(sys.argv[1:], "hf:u:p:l", ["help", "file=", "url=", "pattern=", "links"])
         except getopt.GetoptError as err:
             # print help information and exit:
             print(err) # will print something like "option -a not recognized"
             self.usage()
             sys.exit(2)
 
+        # Process args
         for o, a in opts:
             if o in ("-h", "--help"):
                 self.usage()
                 sys.exit()
 
             if o in ("-p", "--pattern"):
-                self.pattern = str(a)
+                self.scraper = ReferenceScraper(pattern=str(a))
+
+            elif o in ("-l", "--links"):
+                self.scraper = LinkScraper()
 
             elif o in ("-f", "--file"):
                 _urlList = self.readFile(a)
                 if len(_urlList) > 0:
-                    self.scraper.addPageList(_urlList)
+                    self.urls += _urlList
 
             elif o in ("-u", "--url"):
-                self.scraper.addPage(a)
+                self.urls.append(a)
 
-        if (len(self.pattern) <= 0):
+        # Checks
+        if not self.scraper:
+            print("No mode selected")
             self.usage()
             sys.exit()
 
-        self.scraper.run(self.pattern, self.writeCSV)
+        # Run
+        print(self.scraper)
+        self.scraper.addPageList(self.urls)
+        self.scraper.run(self.writeCSV)
 
     # Write output into file
     def writeCSV(self, _results):
@@ -69,6 +83,7 @@ class MainApp():
         print("file: -f, --file")
         print("single url: -u, --url")
         print("search pattern: -p, --pattern")
+        print("crawl links: -l, --links")
         pass
 
     # Read list from CSV file

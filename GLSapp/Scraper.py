@@ -8,6 +8,7 @@ import requests
 from threading import Thread
 from time import sleep
 
+
 class Scraper(object):
     
     def __init__(self):
@@ -17,11 +18,9 @@ class Scraper(object):
         self.maxThreads = 20
         self.activeThreads = 0
         
-        self.pattern = ""
-        
         print("Scraper initialized")
     
-    # Add a single page      
+    # Add a single page
     def addPage(self, url):
         if not url in self.pages:
             print("adding url: " + url)
@@ -32,16 +31,22 @@ class Scraper(object):
         for item in _list:
             if not item in self.pages:
                 self.pages.append(item)
-    
-    # Execute scraper after adding pages    
-    def run(self, _find, _callFinal):
+
+    def can_run(self):
+
         if len(self.pages) > 0:
-            print("Starting threaded scraping for " + str(len(self.pages)) + " pages...")
-            self.pattern = _find            
-            self.start_scrapeThreads(_callFinal)
+            return True
 
         else:
             print("Please add pages to scrape")
+            return False
+    
+    # Execute scraper after adding pages
+    def run(self, _callFinal):
+
+        if self.can_run():
+            print("Starting threaded scraping for " + str(len(self.pages)) + " pages...")
+            self.start_scrapeThreads(_callFinal)
         
         return self.results
     
@@ -71,7 +76,7 @@ class Scraper(object):
     def run_scrapeThread(self, _url, _finalFunc):
         try:
             page = requests.get(_url, timeout=5)
-            self.__findSearchPattern__(_url, page)
+            self.__find__(_url, page)
             
         except:
             pass
@@ -87,8 +92,5 @@ class Scraper(object):
             print("Waiting for " + str(self.activeThreads) + " threads to finish operations...")
     
     #  Private basic pattern search functionality
-    def __findSearchPattern__(self, _url, _page):
-        if self.pattern in _page.text.lower():
-            print("Bingo! Pattern '" + self.pattern +"' found - Added url to results...")
-            self.results.append(_url)
-        
+    def __find__(self, _url, _page):
+        raise NotImplementedError()
