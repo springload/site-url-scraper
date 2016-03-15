@@ -34,6 +34,12 @@ class Scraper(object):
         for url in _list:
             self.add_page(url)
 
+    # Add results
+    def add_result(self, url):
+        if url not in self.results:
+            self.results.append(url)
+
+    # Check if the scraper can run
     def can_run(self):
 
         if len(self.pages) > 0:

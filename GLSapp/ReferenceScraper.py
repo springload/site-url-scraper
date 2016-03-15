@@ -18,4 +18,4 @@ class ReferenceScraper(Scraper):
     def __find__(self, _url, _page):
         if self.pattern in _page.text.lower():
             print("Bingo! Pattern '" + self.pattern + "' found - Added url to results...")
-            self.results.append(_url)
+            self.add_result(_url)
