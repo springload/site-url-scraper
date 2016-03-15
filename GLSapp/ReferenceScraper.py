@@ -3,8 +3,8 @@ from GLSapp.Scraper import Scraper
 
 class ReferenceScraper(Scraper):
 
-    def __init__(self, pattern):
-        super().__init__()
+    def __init__(self, callback, pattern):
+        super().__init__(callback)
         self.pattern = pattern
 
     def can_run(self):

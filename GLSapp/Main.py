@@ -43,10 +43,10 @@ class MainApp:
                 sys.exit()
 
             if o in ("-p", "--pattern"):
-                self.scraper = ReferenceScraper(pattern=str(a))
+                self.scraper = ReferenceScraper(callback=self.write_csv, pattern=str(a))
 
             elif o in ("-l", "--links"):
-                self.scraper = LinkScraper()
+                self.scraper = LinkScraper(callback=self.write_csv)
 
             elif o in ("-f", "--file"):
                 _urlList = self.read_file(a)
@@ -65,7 +65,7 @@ class MainApp:
         # Run
         print(self.scraper)
         self.scraper.add_page_list(self.urls)
-        self.scraper.run(self.write_csv)
+        self.scraper.run()
 
     # Write output into file
     def write_csv(self, _results):
