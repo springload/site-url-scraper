@@ -37,15 +37,18 @@ class MainApp:
             sys.exit(2)
 
         # Process args
+        pattern_mode_option = link_mode_option = False
         for o, a in opts:
             if o in ("-h", "--help"):
                 self.usage()
                 sys.exit()
 
             if o in ("-p", "--pattern"):
+                pattern_mode_option = True
                 self.scraper = ReferenceScraper(callback=self.write_csv, pattern=str(a))
 
             elif o in ("-l", "--links"):
+                link_mode_option = True
                 self.scraper = LinkScraper(callback=self.write_csv)
 
             elif o in ("-f", "--file"):
@@ -57,8 +60,13 @@ class MainApp:
                 self.urls.append(a)
 
         # Checks
-        if not self.scraper:
-            print("No mode selected")
+        if not pattern_mode_option and not link_mode_option:
+            print("Please select either link or pattern mode")
+            self.usage()
+            sys.exit()
+
+        if pattern_mode_option and link_mode_option:
+            print("Cannot run both link and pattern modes")
             self.usage()
             sys.exit()
 
