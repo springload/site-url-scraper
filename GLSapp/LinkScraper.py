@@ -12,6 +12,17 @@ class LinkScraper(Scraper):
         self.link_pattern = re.compile(r'href=["\'](.*?)["\']')
         self.file_pattern = re.compile(r'\.(css|js|txt|jpg|png|gif|swf|pdf)')
 
+    def remove_base_url(self, url):
+        return url.replace(self.base_url, '') or '/'
+
+    def add_result(self, url):
+        url = self.remove_base_url(url)
+        super().add_result(url)
+
+    def add_error(self, url):
+        url = self.remove_base_url(url)
+        super().add_error(url)
+
     def can_run(self):
         if self.base_url:
             return super().can_run()
