@@ -12,8 +12,9 @@ from time import sleep
 class Scraper(object):
 
     def __init__(self, callback):
-        self.pages = []
-        self.results = []
+        self.pages = list()
+        self.visited_pages = set()
+        self.results = list()
         
         self.maxThreads = 20
         self.activeThreads = 0
@@ -24,15 +25,14 @@ class Scraper(object):
 
     # Add a single page
     def add_page(self, url):
-        if url not in self.pages:
-            print("adding url: " + url)
+        if url not in self.pages and url not in self.visited_pages:
+            print("Adding url: " + url)
             self.pages.append(url)
 
     # Add a list of pages
     def add_page_list(self, _list):
-        for item in _list:
-            if item not in self.pages:
-                self.pages.append(item)
+        for url in _list:
+            self.add_page(url)
 
     def can_run(self):
 
@@ -77,6 +77,7 @@ class Scraper(object):
     def run_scrape_thread(self, _url):
         try:
             page = requests.get(_url, timeout=5)
+            self.visited_pages.add(_url)
             self.__find__(_url, page)
 
         except:
