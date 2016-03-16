@@ -1,4 +1,4 @@
-#Google Reference Scraper
+#Site url scraper
 Multithreaded Python application to search a string pattern or find all internal links from a url or CSV list of urls
 
 ## Usage
