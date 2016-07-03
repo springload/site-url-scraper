@@ -16,7 +16,7 @@ class Scraper(object):
         self.visited_pages = set()
         self.results = set()
         self.errors = set()
-        
+
         self.maxThreads = 20
         self.activeThreads = 0
 
@@ -52,7 +52,7 @@ class Scraper(object):
         else:
             print("Please add pages to scrape")
             return False
-    
+
     # Execute scraper after adding pages
     def run(self):
 
@@ -93,8 +93,8 @@ class Scraper(object):
 
         self.activeThreads -= 1
         self.start_scrape_threads()
-    
-    # Finish scraper if no more url's are left in the list    
+
+    # Finish scraper if no more url's are left in the list
     def check_all_threads_have_run(self):
         if len(self.pages) == 0 and self.activeThreads <= 0:
             self.callback(self.results | self.errors)

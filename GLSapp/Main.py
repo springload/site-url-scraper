@@ -29,7 +29,11 @@ class MainApp:
 
         # Extract args
         try:
-            opts, args = getopt.getopt(sys.argv[1:], "hf:u:p:l", ["help", "file=", "url=", "pattern=", "links"])
+            opts, args = getopt.getopt(
+                sys.argv[1:],
+                "hf:u:p:l",
+                ["help", "file=", "url=", "pattern=", "links"]
+            )
         except getopt.GetoptError as err:
             # print help information and exit:
             print(err)  # will print something like "option -a not recognized"
@@ -45,7 +49,8 @@ class MainApp:
 
             if o in ("-p", "--pattern"):
                 pattern_mode_option = True
-                self.scraper = ReferenceScraper(callback=self.write_csv, pattern=str(a))
+                self.scraper = ReferenceScraper(
+                    callback=self.write_csv, pattern=str(a))
 
             elif o in ("-l", "--links"):
                 link_mode_option = True
