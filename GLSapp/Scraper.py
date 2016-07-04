@@ -67,14 +67,14 @@ class Scraper(object):
 
         elif self.activeThreads >= self.maxThreads:
             sleep(1)
-            self.run_scrape_thread()
+            self.start_scrape_threads()
 
         else:
             self.activeThreads += 1
             _url = self.pages.pop()
 
-            print("Thread created (" + str(len(self.pages)) + ") for url: " + _url)
-
+            print("Thread created (" + str(len(self.pages)) + " pages left) for url: " + _url)
+            sleep(1)
             thread = Thread(target=self.run_scrape_thread, args=(_url,))
             thread.start()
 
