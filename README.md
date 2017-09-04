@@ -2,7 +2,7 @@
 
 Multithreaded Python application to search a string pattern or find all internal links from a url or CSV list of urls
 
-**/!\ This project isn't actively maintained. Check alternatives like [pylinkchecker](https://github.com/mtlevolio/pylinkchecker) or [broken-link-checker](https://github.com/stevenvachon/broken-link-checker) /!\**
+**/!\ This project isn't actively maintained. Check alternatives like [pylinkchecker](https://github.com/mtlevolio/pylinkchecker) or [broken-link-checker](https://github.com/stevenvachon/broken-link-checker) /!\\**
 
 ## Installation
 
